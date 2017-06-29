@@ -14,6 +14,30 @@ from sklearn.model_selection import train_test_split
 import seaborn as sns # for intractve graphs
 
 from imblearn.under_sampling import CondensedNearestNeighbour
+def plot_counts(normal, fraud):
+
+    N = 5
+    men_means = (normal)
+    men_std = (2)
+
+    ind = np.arange(1)  # the x locations for the groups
+    width = 0.35  # the width of the bars
+
+    fig, ax = plt.subplots()
+    rects1 = ax.bar(ind, men_means, width, color='g', yerr=men_std)
+
+    women_means = (fraud)
+    women_std = (2)
+    rects2 = ax.bar(ind + width, women_means, width, color='r', yerr=women_std)
+
+    # add some text for labels, title and axes ticks
+    ax.set_ylabel('Log(Counts)')
+    ax.set_title('Records count by class')
+    ax.set_xticks(ind + width / 2)
+    ax.set_xticklabels((''))
+
+    ax.legend((rects1[0], rects2[0]), ('Normal', 'Fraud'))
+
 
 def get_set():
     credit_cards=pd.read_csv('../dataset/creditcard.csv')
@@ -24,12 +48,11 @@ def get_set():
     y=credit_cards['Class']
     Fraud_transacation = credit_cards[credit_cards["Class"] == 1]
     Normal_transacation = credit_cards[credit_cards["Class"] == 0]
-    plt.figure(figsize=(10, 6))
-    plt.subplot(121)
-    Fraud_transacation.Amount.plot.hist(title="Fraud Transacation")
-    plt.subplot(122)
-    Normal_transacation.Amount.plot.hist(title="Normal Transaction")
-    plt.show()
+    plot_counts(np.math.log(len(Normal_transacation)), np.math.log(len(Fraud_transacation)))
+
+
+
+
     return train_test_split(x, y, test_size=0.2, random_state=10)
 
 def oversample(x,y):
