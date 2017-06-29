@@ -2,6 +2,8 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
 import itertools
+
+from imblearn.combine import SMOTEENN
 from imblearn.over_sampling import SMOTE
 from imblearn.under_sampling import AllKNN
 from imblearn.under_sampling import InstanceHardnessThreshold
@@ -62,7 +64,8 @@ def oversample(x,y):
     return new_x, new_y
 
 def undersample(x,y):
-    sampler = InstanceHardnessThreshold(random_state=42)
+    #sampler = InstanceHardnessThreshold(random_state=42)
+    sampler = SMOTEENN(random_state=42)
     new_x,new_y=sampler.fit_sample(x,y)
     return new_x, new_y
 
@@ -124,7 +127,7 @@ def main():
     #oversampled
     x_train_ov, y_train_ov = oversample(x_train, y_train)
     evaluate_model(x_train_ov,x_test,y_train_ov,y_test)
-    #undersampled + trees
+    #over under
     x_train_us, y_train_us = undersample(x_train, y_train)
     evaluate_model(x_train_us,x_test, y_train_us,y_test)
 
