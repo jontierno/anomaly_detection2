@@ -22,6 +22,14 @@ def get_set():
     features_columns= features_columns.delete(0)
     x=credit_cards[features_columns]
     y=credit_cards['Class']
+    Fraud_transacation = credit_cards[credit_cards["Class"] == 1]
+    Normal_transacation = credit_cards[credit_cards["Class"] == 0]
+    plt.figure(figsize=(10, 6))
+    plt.subplot(121)
+    Fraud_transacation.Amount.plot.hist(title="Fraud Transacation")
+    plt.subplot(122)
+    Normal_transacation.Amount.plot.hist(title="Normal Transaction")
+    plt.show()
     return train_test_split(x, y, test_size=0.2, random_state=10)
 
 def oversample(x,y):
