@@ -95,7 +95,7 @@ def main():
     evaluate_model(x_train_ov,x_test,y_train_ov,y_test)
     #undersampled + trees
     x_train_us, y_train_us = undersample(x_train, y_train)
-    evaluate_model(x_train_us,x_test, y_train_us,y_test, trees=20)
+    evaluate_model(x_train_us,x_test, y_train_us,y_test)
 
 
 if __name__ == '__main__':
