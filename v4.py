@@ -23,22 +23,23 @@ def plot_counts(normal, fraud):
     men_std = (2)
 
     ind = np.arange(1)  # the x locations for the groups
-    width = 0.35  # the width of the bars
+    width = 0.25  # the width of the bars
 
     fig, ax = plt.subplots()
-    rects1 = ax.bar(ind, men_means, width, color='g', yerr=men_std)
+    rects1 = ax.bar(ind, men_means, width, fill=False, hatch='\\', yerr=men_std, label='Normal')
 
     women_means = (fraud)
     women_std = (2)
-    rects2 = ax.bar(ind + width, women_means, width, color='r', yerr=women_std)
+    rects2 = ax.bar(ind + width, women_means, width, fill=False, hatch='/', yerr=women_std, label='Fraud')
 
     # add some text for labels, title and axes ticks
     ax.set_ylabel('Log(Counts)')
     ax.set_title('Records count by class')
     ax.set_xticks(ind + width / 2)
     ax.set_xticklabels((''))
+    ax.set_facecolor("white")
 
-    ax.legend((rects1[0], rects2[0]), ('Normal', 'Fraud'))
+    ax.legend()
 
 
 def get_set():
